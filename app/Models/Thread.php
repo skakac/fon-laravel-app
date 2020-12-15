@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Forum extends Model
+class Thread extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -16,9 +18,11 @@ class Forum extends Model
      */
     protected $fillable = [
         'name',
+        'forum_id',
+        'user_id',
     ];
 
-    public function threads() {
-        return $this->hasMany()
+    public function forum() {
+        return $this->belongsTo(Forum::class);
     }
 }
