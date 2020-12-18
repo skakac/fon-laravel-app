@@ -26,35 +26,45 @@ class ApiController extends Controller {
 
     public function messages(Forum $forum, Thread $thread, Request $request)
     {
-        return $thread->messages()->with(['user']);
+        return $thread->messages()->with(['user'])->get();
     }
 
     public function create(Forum $forum, Thread $thread, Request $request)
     {
-        $data = $request->validate([
-            'body' => 'required|string|min:1',
-        ]);
+        try {
+            $data = $request->validate([
+                'user_id' => 'required|exists:users,id',
+                'body' => 'required|string|min:1',
+            ]);
+        } catch (\Throwable $e) {
+            return response(['error' => $e->getMessage()], 400);
+        }
 
         return Message::create([
-            'user_id' => auth()->id(),
+            'user_id' => $data['user_id'],
             'thread_id' => $thread->id,
             'body' => $data['body'],
         ]);
     }
 
     public function update(Forum $forum, Thread $thread, Message $message, Request $request) {
-        $data = $request->validate([
-            'body' => 'required|string|min:1',
-        ]);
+        try {
+            $data = $request->validate([
+                'body' => 'required|string|min:1',
+            ]);
+        } catch (\Throwable $e) {
+            return response(['error' => $e->getMessage()], 400);
+        }
 
-        return $message->update([
-            'user_id' => auth()->id(),
-            'thread_id' => $thread->id,
+        $message->update([
             'body' => $data['body'],
         ]);
+
+        return $message;
     }
 
     public function delete(Forum $forum, Thread $thread, Message $message) {
-        return $message->delete();
+        $message->delete();
+        return $message;
     }
 }
