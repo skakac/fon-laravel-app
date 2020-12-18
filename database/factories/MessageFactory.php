@@ -2,18 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\Message;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
-class UserFactory extends Factory
+class MessageFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = User::class;
+    protected $model = Message::class;
 
     /**
      * Define the model's default state.
@@ -23,8 +22,7 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'ip' => $this->faker->ipv4,
-            'password' => \Hash::make('password'),
+            'body' => $this->faker->paragraphs(3, true),
             'created_at' => now(),
             'updated_at' => now(),
         ];

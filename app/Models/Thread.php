@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @mixin IdeHelperThread
+ */
 class Thread extends Model
 {
     use HasFactory;
@@ -24,5 +27,17 @@ class Thread extends Model
 
     public function forum() {
         return $this->belongsTo(Forum::class);
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function messages() {
+        return $this->hasMany(Message::class);
+    }
+
+    public function firstMessage() {
+        return $this->hasOne(Message::class);
     }
 }

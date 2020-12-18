@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @mixin IdeHelperMessage
+ */
 class Message extends Model
 {
     use HasFactory;
@@ -17,7 +20,7 @@ class Message extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
+        'body',
         'thread_id',
         'user_id',
     ];
