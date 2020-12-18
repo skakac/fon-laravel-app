@@ -21,7 +21,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
     Route::get('/forum/{forum}', 'DashboardController@forum');
     Route::get('/forum/{forum}/thread/{thread}', 'DashboardController@thread');
-    Route::post('/forum/{forum}/thread/{thread}', 'DashboardController@post');
+    Route::post('/forum/{forum}/thread/{thread}', 'DashboardController@create');
 });
 
 require __DIR__.'/auth.php';

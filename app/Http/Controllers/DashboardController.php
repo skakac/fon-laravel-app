@@ -37,7 +37,7 @@ class DashboardController extends Controller {
         return view('thread', compact('forum', 'thread', 'messages'));
     }
 
-    public function post(Forum $forum, Thread $thread, Request $request)
+    public function create(Forum $forum, Thread $thread, Request $request)
     {
         $data = $request->validate([
             'body' => 'required|string|min:1',
