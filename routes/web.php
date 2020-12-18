@@ -14,11 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('/forum/{forum}', 'DashboardController@forum');
+    Route::get('/forum/{forum}/thread/{thread}', 'DashboardController@thread');
+    Route::post('/forum/{forum}/thread/{thread}', 'DashboardController@post');
+});
 
 require __DIR__.'/auth.php';
