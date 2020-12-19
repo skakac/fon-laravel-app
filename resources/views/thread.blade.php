@@ -14,7 +14,7 @@
                 <div class="p-6 bg-white border-b border-gray-200 hover:bg-gray-50">
                     {{ $message->user->username }} <small class="text-gray-600">@ {{ $message->created_at->format('Y/m/d H:i') }}</small>
                     <br />
-                    <span>{{ mb_strimwidth($message->body, 0, 128, "...") }}</span>
+                    <span>{{ $message->body }}</span>
 
                 </div>
             </div>
