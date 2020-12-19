@@ -26,9 +26,4 @@ class Forum extends Model
     public function threads() {
         return $this->hasMany(Thread::class);
     }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 }
